@@ -26,7 +26,7 @@ other = "Attachments"
 other = "Error"
 
 [message-404]
-other = "Woops. Looks like this page doesn't exist or moved. Recently the site has been moved to Hugo. Please find the appropriate link from the sidebar. Sorry for the inconvience caused."
+other = "Woops. Looks like this page doesn't exist or moved. Recently the site has been migrated to use Hugo. Click go to homepage and find the appropriate link from the sidebar. Sorry for the inconvience caused."
 
 [Go-to-homepage]
 other = "Go to homepage"
