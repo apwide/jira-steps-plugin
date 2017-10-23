@@ -20,9 +20,9 @@ This step queries a particular remote link of an issue.
 
 #### Output
 
-* Each step generates generic output, please refer to this [link](config.html#common-response--error-handling) for more information.
+* Each step generates generic output, please refer to this [link]({{%relref "getting-started/config/common.md"%}}) for more information.
 * The api response of this jira_get_remote_issue_link step can be reused later in your script by doing `response.data.required_field_name`.
-* You can see some example scenarios [here](https://jenkinsci.github.io/jira-steps-plugin/common_usages.html)
+* You can see some example scenarios [here]({{%relref "getting-started/examples"%}})
 * All the available fields for a jira response can be found in [JIRA API documentation](https://docs.atlassian.com/jira/REST/) depending on your JIRA version.
 
 {{% notice note %}}
@@ -31,7 +31,7 @@ This step queries a particular remote link of an issue.
 
 #### Examples
 
-* With default [site](config#environment-variables) from global variables.
+* With default [site]({{%relref "getting-started/config/common.md#global-environment-variables"%}}) from global variables.
 
     ```groovy
     node {
