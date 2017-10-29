@@ -34,5 +34,5 @@ public class IssueLink implements Serializable {
   private BasicIssue outwardIssue;
 
   @JsonProperty("comment")
-  private Comment comment;
+  private Object comment;
 }

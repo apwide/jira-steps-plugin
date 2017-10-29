@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import org.thoughtslive.jenkins.plugins.jira.Site;
-import org.thoughtslive.jenkins.plugins.jira.api.Comment;
+import org.thoughtslive.jenkins.plugins.jira.api.InputBuilder;
 import org.thoughtslive.jenkins.plugins.jira.api.IssueLink;
 import org.thoughtslive.jenkins.plugins.jira.api.IssueLinkType;
 import org.thoughtslive.jenkins.plugins.jira.api.ResponseData;
@@ -179,7 +179,7 @@ public class JiraService {
   public ResponseData<Object> addComment(final String issueIdorKey, final String comment) {
     try {
       return parseResponse(jiraEndPoints
-          .addComment(issueIdorKey, Comment.builder().body(comment).build()).execute());
+          .addComment(issueIdorKey, InputBuilder.buildComment(comment)).execute());
     } catch (Exception e) {
       return buildErrorResponse(e);
     }
@@ -190,7 +190,7 @@ public class JiraService {
     try {
       return parseResponse(
           jiraEndPoints
-              .updateComment(issueIdorKey, commentId, Comment.builder().body(comment).build())
+              .updateComment(issueIdorKey, commentId, InputBuilder.buildComment(comment))
               .execute());
     } catch (Exception e) {
       return buildErrorResponse(e);
@@ -348,9 +348,9 @@ public class JiraService {
 
   public ResponseData<Void> linkIssues(final String name, final String inwardIssueKey,
       final String outwardIssueKey, final String comment) {
-    Comment linkComment = null;
+    Object linkComment = null;
     if (!empty(comment)) {
-      linkComment = Comment.builder().body(comment).build();
+      linkComment = InputBuilder.buildComment(comment);
     }
 
     final IssueLink issueLink = IssueLink.builder().type(IssueLinkType.builder().name(name).build())
