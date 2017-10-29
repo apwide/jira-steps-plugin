@@ -1,24 +1,20 @@
-
 package org.thoughtslive.jenkins.plugins.jira.api;
-
-import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
-
-import org.joda.time.DateTime;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.thoughtslive.jenkins.plugins.jira.api.input.BasicIssue;
-import org.thoughtslive.jenkins.plugins.jira.util.CustomDateTimeSerializer;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
+import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.joda.time.DateTime;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.thoughtslive.jenkins.plugins.jira.api.input.BasicIssue;
+import org.thoughtslive.jenkins.plugins.jira.util.CustomDateTimeSerializer;
 
 @Data
 @NoArgsConstructor

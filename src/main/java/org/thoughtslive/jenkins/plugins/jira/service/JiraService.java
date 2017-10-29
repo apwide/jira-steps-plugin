@@ -4,9 +4,12 @@ import static org.thoughtslive.jenkins.plugins.jira.util.Common.buildErrorRespon
 import static org.thoughtslive.jenkins.plugins.jira.util.Common.empty;
 import static org.thoughtslive.jenkins.plugins.jira.util.Common.parseResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
+import okhttp3.ConnectionPool;
+import okhttp3.OkHttpClient;
 import org.thoughtslive.jenkins.plugins.jira.Site;
 import org.thoughtslive.jenkins.plugins.jira.api.Comment;
 import org.thoughtslive.jenkins.plugins.jira.api.IssueLink;
@@ -16,21 +19,14 @@ import org.thoughtslive.jenkins.plugins.jira.api.SearchResult;
 import org.thoughtslive.jenkins.plugins.jira.api.User;
 import org.thoughtslive.jenkins.plugins.jira.api.input.BasicIssue;
 import org.thoughtslive.jenkins.plugins.jira.login.SigningInterceptor;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-
-import okhttp3.ConnectionPool;
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * Service to interact with jira instance/site.
- * 
- * @author Naresh Rayapati.
  *
+ * @author Naresh Rayapati.
  */
 public class JiraService {
 
@@ -68,7 +64,7 @@ public class JiraService {
 
   /**
    * Queries Component by id.
-   * 
+   *
    * @param id component id.
    * @return component.
    */
@@ -82,7 +78,7 @@ public class JiraService {
 
   /**
    * Creates component.
-   * 
+   *
    * @param component an instance of {@link Object}
    * @return created component.
    */
@@ -96,7 +92,7 @@ public class JiraService {
 
   /**
    * Updates component.
-   * 
+   *
    * @param component actual component
    * @return updated component.
    */
@@ -110,7 +106,7 @@ public class JiraService {
 
   /**
    * Component issue count.
-   * 
+   *
    * @param id component id.
    * @return count.
    */
@@ -124,7 +120,7 @@ public class JiraService {
 
   /**
    * Queries the issues by given id.
-   * 
+   *
    * @param issueIdOrKey issue id or key.
    * @return issue.
    */
@@ -189,10 +185,13 @@ public class JiraService {
     }
   }
 
-  public ResponseData<Object> updateComment(final String issueIdorKey, final String commentId, final String comment) {
+  public ResponseData<Object> updateComment(final String issueIdorKey, final String commentId,
+      final String comment) {
     try {
       return parseResponse(
-          jiraEndPoints.updateComment(issueIdorKey, commentId, Comment.builder().body(comment).build()).execute());
+          jiraEndPoints
+              .updateComment(issueIdorKey, commentId, Comment.builder().body(comment).build())
+              .execute());
     } catch (Exception e) {
       return buildErrorResponse(e);
     }
@@ -364,7 +363,7 @@ public class JiraService {
       return buildErrorResponse(e);
     }
   }
-  
+
   // Remote Issue Links
   public ResponseData<Object> getIssueRemoteLinks(final String idOrKey, final String globalId) {
     try {
@@ -408,27 +407,30 @@ public class JiraService {
 
   public ResponseData<Object> getFields() {
     try {
-        return parseResponse(jiraEndPoints.getFields().execute());
+      return parseResponse(jiraEndPoints.getFields().execute());
     } catch (Exception e) {
-        return buildErrorResponse(e);
+      return buildErrorResponse(e);
     }
   }
 
   public ResponseData<Object> userSearch(final String userName, final int startAt,
       final int maxResults) {
     try {
-        return parseResponse(jiraEndPoints.userSearch(userName, startAt, maxResults).execute());
+      return parseResponse(jiraEndPoints.userSearch(userName, startAt, maxResults).execute());
     } catch (Exception e) {
-        return buildErrorResponse(e);
+      return buildErrorResponse(e);
     }
   }
 
-  public ResponseData<Object> assignableUserSearch(final String userName, final String project, final String issueKey, final int startAt,
+  public ResponseData<Object> assignableUserSearch(final String userName, final String project,
+      final String issueKey, final int startAt,
       final int maxResults) {
     try {
-        return parseResponse(jiraEndPoints.assignableUserSearch(userName, project, issueKey, startAt, maxResults).execute());
+      return parseResponse(
+          jiraEndPoints.assignableUserSearch(userName, project, issueKey, startAt, maxResults)
+              .execute());
     } catch (Exception e) {
-        return buildErrorResponse(e);
+      return buildErrorResponse(e);
     }
   }
 }

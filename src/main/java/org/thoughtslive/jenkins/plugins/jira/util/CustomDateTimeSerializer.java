@@ -1,22 +1,19 @@
 package org.thoughtslive.jenkins.plugins.jira.util;
 
-import java.io.IOException;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdScalarSerializer;
+import java.io.IOException;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * Custom DateTime Serializer, JIRA takes strings as an input, need to apply this serializer before
  * we send a json to JIRA.
- * 
- * @author nrayapati
  *
+ * @author nrayapati
  */
 public class CustomDateTimeSerializer extends StdScalarSerializer<DateTime> {
 

@@ -7,11 +7,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import hudson.EnvVars;
+import hudson.model.Run;
+import hudson.model.TaskListener;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.jenkinsci.plugins.workflow.steps.StepContext;
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -30,15 +32,10 @@ import org.thoughtslive.jenkins.plugins.jira.api.ResponseData.ResponseDataBuilde
 import org.thoughtslive.jenkins.plugins.jira.api.input.IssueInput;
 import org.thoughtslive.jenkins.plugins.jira.service.JiraService;
 
-import hudson.EnvVars;
-import hudson.model.Run;
-import hudson.model.TaskListener;
-
 /**
  * Unit test cases for NewIssueStep class.
- * 
- * @author Naresh Rayapati
  *
+ * @author Naresh Rayapati
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({NewIssueStep.class, Site.class})
@@ -99,7 +96,8 @@ public class NewIssueStepTest {
   @Test
   public void testSuccessfulNewIssue() throws Exception {
     final NewIssueStep step = new NewIssueStep(issue);
-    stepExecution = new NewIssueStep.Execution(step, contextMock);;
+    stepExecution = new NewIssueStep.Execution(step, contextMock);
+    ;
 
     // Execute Test.
     stepExecution.run();

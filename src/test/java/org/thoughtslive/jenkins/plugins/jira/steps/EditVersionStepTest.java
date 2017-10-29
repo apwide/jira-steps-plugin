@@ -8,9 +8,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import hudson.EnvVars;
+import hudson.model.Run;
+import hudson.model.TaskListener;
 import java.io.IOException;
 import java.io.PrintStream;
-
 import org.jenkinsci.plugins.workflow.steps.StepContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,15 +28,10 @@ import org.thoughtslive.jenkins.plugins.jira.api.ResponseData.ResponseDataBuilde
 import org.thoughtslive.jenkins.plugins.jira.api.Version;
 import org.thoughtslive.jenkins.plugins.jira.service.JiraService;
 
-import hudson.EnvVars;
-import hudson.model.Run;
-import hudson.model.TaskListener;
-
 /**
  * Unit test cases for EditVersionStep class.
- * 
- * @author Naresh Rayapati
  *
+ * @author Naresh Rayapati
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({EditVersionStep.class, Site.class})
@@ -87,7 +84,8 @@ public class EditVersionStepTest {
     final Version version =
         Version.builder().name("testVersion").id("10000").project("TEST").build();
     final EditVersionStep step = new EditVersionStep("10000", version);
-    stepExecution = new EditVersionStep.Execution(step, contextMock);;
+    stepExecution = new EditVersionStep.Execution(step, contextMock);
+    ;
 
     // Execute Test.
     stepExecution.run();

@@ -8,9 +8,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import hudson.EnvVars;
+import hudson.model.Run;
+import hudson.model.TaskListener;
 import java.io.IOException;
 import java.io.PrintStream;
-
 import org.jenkinsci.plugins.workflow.steps.StepContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,15 +28,10 @@ import org.thoughtslive.jenkins.plugins.jira.api.ResponseData;
 import org.thoughtslive.jenkins.plugins.jira.api.ResponseData.ResponseDataBuilder;
 import org.thoughtslive.jenkins.plugins.jira.service.JiraService;
 
-import hudson.EnvVars;
-import hudson.model.Run;
-import hudson.model.TaskListener;
-
 /**
  * Unit test cases for EditComponentStep class.
- * 
- * @author Naresh Rayapati
  *
+ * @author Naresh Rayapati
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({EditComponentStep.class, Site.class})
@@ -86,7 +83,8 @@ public class EditComponentStepTest {
     final Component component =
         Component.builder().id("1000").name("testcomponent").project("TEST").build();
     final EditComponentStep step = new EditComponentStep("100", component);
-    stepExecution = new EditComponentStep.Execution(step, contextMock);;
+    stepExecution = new EditComponentStep.Execution(step, contextMock);
+    ;
 
     // Execute Test.
     stepExecution.run();

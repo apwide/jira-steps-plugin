@@ -1,23 +1,20 @@
 package org.thoughtslive.jenkins.plugins.jira.util;
 
-import java.io.IOException;
-
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
+import java.io.IOException;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * Custom DateTime Deserializer.
- * 
- * @author nrayapati
  *
+ * @author nrayapati
  */
 public class CustomDateTimeDeserializer extends StdScalarDeserializer<DateTime> {
 

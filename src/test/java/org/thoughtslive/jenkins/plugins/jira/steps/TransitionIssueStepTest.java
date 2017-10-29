@@ -8,9 +8,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import hudson.EnvVars;
+import hudson.model.Run;
+import hudson.model.TaskListener;
 import java.io.IOException;
 import java.io.PrintStream;
-
 import org.jenkinsci.plugins.workflow.steps.StepContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,20 +31,17 @@ import org.thoughtslive.jenkins.plugins.jira.api.Transition;
 import org.thoughtslive.jenkins.plugins.jira.api.input.TransitionInput;
 import org.thoughtslive.jenkins.plugins.jira.service.JiraService;
 
-import hudson.EnvVars;
-import hudson.model.Run;
-import hudson.model.TaskListener;
-
 /**
  * Unit test cases for TransitionIssueStep class.
- * 
- * @author Naresh Rayapati
  *
+ * @author Naresh Rayapati
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({TransitionIssueStep.class, Site.class})
 public class TransitionIssueStepTest {
 
+  final Issue issue =
+      Issue.builder().fields(Fields.builder().description("TEST").summary("TEST").build()).build();
   @Mock
   TaskListener taskListenerMock;
   @Mock
@@ -57,11 +56,7 @@ public class TransitionIssueStepTest {
   Site siteMock;
   @Mock
   StepContext contextMock;
-
   TransitionIssueStep.Execution stepExecution;
-
-  final Issue issue =
-      Issue.builder().fields(Fields.builder().description("TEST").summary("TEST").build()).build();
 
   @Before
   public void setup() throws IOException, InterruptedException {
@@ -92,7 +87,8 @@ public class TransitionIssueStepTest {
     final TransitionInput input =
         TransitionInput.builder().transition(Transition.builder().id("1000").build()).build();
     final TransitionIssueStep step = new TransitionIssueStep("TEST-1", input);
-    stepExecution = new TransitionIssueStep.Execution(step, contextMock);;
+    stepExecution = new TransitionIssueStep.Execution(step, contextMock);
+    ;
 
     // Execute Test.
     stepExecution.run();
