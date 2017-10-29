@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.thoughtslive.jenkins.plugins.jira.Site;
 import org.thoughtslive.jenkins.plugins.jira.api.Comment;
-import org.thoughtslive.jenkins.plugins.jira.api.Component;
 import org.thoughtslive.jenkins.plugins.jira.api.IssueLink;
 import org.thoughtslive.jenkins.plugins.jira.api.IssueLinkType;
 import org.thoughtslive.jenkins.plugins.jira.api.ResponseData;
@@ -84,7 +83,7 @@ public class JiraService {
   /**
    * Creates component.
    * 
-   * @param component an instance of {@link Component}
+   * @param component an instance of {@link Object}
    * @return created component.
    */
   public ResponseData<Object> createComponent(final Object component) {
@@ -101,9 +100,9 @@ public class JiraService {
    * @param component actual component
    * @return updated component.
    */
-  public ResponseData<Void> updateComponent(final Component component) {
+  public ResponseData<Void> updateComponent(final String id, final Object component) {
     try {
-      return parseResponse(jiraEndPoints.updateComponent(component.getId(), component).execute());
+      return parseResponse(jiraEndPoints.updateComponent(id, component).execute());
     } catch (Exception e) {
       return buildErrorResponse(e);
     }
@@ -138,7 +137,7 @@ public class JiraService {
   }
 
   /**
-   * Creates issue based on given {@link Issue}
+   * Creates issue based on given {@link Object}
    */
   public ResponseData<Object> createIssue(final Object issue) {
     try {

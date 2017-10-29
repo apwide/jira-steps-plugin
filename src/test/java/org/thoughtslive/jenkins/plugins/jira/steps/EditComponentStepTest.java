@@ -2,6 +2,7 @@ package org.thoughtslive.jenkins.plugins.jira.steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -72,7 +73,7 @@ public class EditComponentStepTest {
     doNothing().when(printStreamMock).println();
 
     final ResponseDataBuilder<Void> builder = ResponseData.builder();
-    when(jiraServiceMock.updateComponent(any()))
+    when(jiraServiceMock.updateComponent(anyString(), any()))
         .thenReturn(builder.successful(true).code(200).message("Success").build());
 
     when(contextMock.get(Run.class)).thenReturn(runMock);
@@ -84,14 +85,14 @@ public class EditComponentStepTest {
   public void testSuccessfulEditComponent() throws Exception {
     final Component component =
         Component.builder().id("1000").name("testcomponent").project("TEST").build();
-    final EditComponentStep step = new EditComponentStep(component);
+    final EditComponentStep step = new EditComponentStep("100", component);
     stepExecution = new EditComponentStep.Execution(step, contextMock);;
 
     // Execute Test.
     stepExecution.run();
 
     // Assert Test
-    verify(jiraServiceMock, times(1)).updateComponent(component);
+    verify(jiraServiceMock, times(1)).updateComponent("100", component);
     assertThat(step.isFailOnError()).isEqualTo(true);
   }
 }
